@@ -38,7 +38,7 @@ class TodoList {
 			if (!el) {
 			return;
 		}
-		lis += `<li class="list-item ${el.status ? 'list-item-done' : 'list-item-progress'}" data-id="${el.id}"><span>${el.value}</span><button class="set-status">Change status</button><button class="delete-task">Delete</button></li>`;
+		lis += `<li class="list-item ${el.status ? 'list-item-done' : ''}" data-id="${el.id}"><span>${el.value}</span><button class="set-status">Change status</button><button class="delete-task">Delete</button></li>`;
 	  	}
 	  	this.el.innerHTML = lis;
 	}
