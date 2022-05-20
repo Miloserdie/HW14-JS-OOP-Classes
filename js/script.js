@@ -4,7 +4,6 @@ class TodoList {
 		this.el = el;
 		this.el.addEventListener('click', (event) => {
 			if(event.target.classList.contains('set-status')) {
-				event.target.closest('.list-item').classList.toggle('list-item-done');
 				this.changeStatus(event.target.closest('.list-item').dataset.id);
 			} else if(event.target.classList.contains('delete-task')) {
 				this.removeTodo(event.target.closest('.list-item').dataset.id);
@@ -30,7 +29,7 @@ class TodoList {
 	changeStatus(id) {
 		let index = this.todos.findIndex((el) => el.id === id);
 		this.todos[index].status = !this.todos[index].status;
-
+		this.render(this.todos);
 	}
 	render(todos = []) {
 		let lis = '';
