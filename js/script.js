@@ -1,7 +1,6 @@
 class TodoList {
 	constructor(el) {
 		this.todos = [];
-		this.findTasksTodos = [];
 		this.el = el;
 		this.el.addEventListener('click', (event) => {
 			if(event.target.classList.contains('set-status')) {
@@ -9,17 +8,18 @@ class TodoList {
 				this.changeStatus(event.target.closest('.list-item').dataset.id);
 			} else if(event.target.classList.contains('delete-task')) {
 				this.removeTodo(event.target.closest('.list-item').dataset.id);
-				todo1.render(todo1.getTodos());
 			}
 		});
 	}
 	addTodo(todo) {
 		this.todos.unshift(todo);
+		this.render(this.todos);
 	}
 	removeTodo(id) {
 		this.todos = this.todos.filter((el) => {
 			return el.id !== id;
 		});
+		todo1.render(this.todos);
 	}
 	getTodos() {
 		return this.todos;
@@ -30,6 +30,7 @@ class TodoList {
 	changeStatus(id) {
 		let index = this.todos.findIndex((el) => el.id === id);
 		this.todos[index].status = !this.todos[index].status;
+
 	}
 	render(todos = []) {
 		let lis = '';
@@ -37,16 +38,15 @@ class TodoList {
 			if (!el) {
 			return;
 		}
-		lis += `<li class="list-item" data-id="${el.id}"><span>${el.value}</span><button class="set-status">Change status</button><button class="delete-task">Delete</button></li>`;
+		lis += `<li class="list-item ${el.status ? 'list-item-done' : 'list-item-progress'}" data-id="${el.id}"><span>${el.value}</span><button class="set-status">Change status</button><button class="delete-task">Delete</button></li>`;
 	  	}
 	  	this.el.innerHTML = lis;
 	}
 	findTasks(value) {
-		this.findTasksTodos = this.todos.filter((el) => {
-			return el.value.includes(value);
-		});
-		todo1.render(todo1.getfindTasksTodos());
-	}
+      this.render(
+          this.todos.filter(item => item.value.includes(value))
+      );
+  	}
 }
 
 class Task {
@@ -66,7 +66,6 @@ form.addEventListener('click', (event) => {
 	event.preventDefault();
 	if(event.target.classList.contains('add-task')) {
 		todo1.addTodo(new Task(taskText.value));
-		todo1.render(todo1.getTodos());
 		taskText.value = '';
 		
 	} else if(event.target.classList.contains('find-task')) {
