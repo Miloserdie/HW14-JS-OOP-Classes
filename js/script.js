@@ -22,7 +22,7 @@ class TodoList {
 	}
 	getTodos() {
 		return this.todos;
-	}}
+	}
 	changeStatus(id) {
 		let index = this.todos.findIndex((el) => el.id === id);
 		this.todos[index].status = !this.todos[index].status;
