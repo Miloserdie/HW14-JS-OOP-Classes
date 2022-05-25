@@ -18,7 +18,7 @@ class TodoList {
 		this.todos = this.todos.filter((el) => {
 			return el.id !== id;
 		});
-		todo1.render(this.todos);
+		this.render(this.todos);
 	}
 	getTodos() {
 		return this.todos;
